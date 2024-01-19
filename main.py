@@ -39,9 +39,50 @@ button_line.addWidget(rizkict)
 
 window.setLayout(main_line)
 
+btn_folder.setStyleSheet('''
+background-color: #2734e8;
+color: #ffbb00                
+''')
+
+
+photo_list.setStyleSheet('''
+background-color: #ffbb00;
+color: #2734e8                
+''')
 
 
 
+
+turn_left.setStyleSheet('''
+background-color: #2734e8;
+color: #ffbb00                
+''')
+
+turn_right.setStyleSheet('''
+background-color: #ffbb00;
+color: #2734e8                
+''')
+
+mirror.setStyleSheet('''
+background-color: #2734e8;
+color: #ffbb00                
+''')
+
+
+color_photo.setStyleSheet('''
+background-color: #ffbb00;
+color: #2734e8                
+''')
+
+rizkict.setStyleSheet('''
+background-color: #2734e8;
+color: #ffbb00                
+''')
+
+
+window.setStyleSheet('''
+background-color: #00ab7a              
+''')
 
 
 def filter (files):
