@@ -3,6 +3,11 @@ from PyQt5.QtWidgets import (QApplication, QLabel,
     QPushButton, QLineEdit, QListWidget, QHBoxLayout, 
     QVBoxLayout, QFileDialog)
 import os
+from ImageProcessor import ImageProcessor
+
+
+
+
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("Easy editor")
@@ -95,6 +100,8 @@ def filter (files):
     return img_files
     
 
+
+
 def showFloder():
     global workdir
     workdir = QFileDialog.getExistingDirectory()
@@ -104,11 +111,16 @@ def showFloder():
 btn_folder.clicked.connect(showFloder)
 
 
+workImage = ImageProcessor()
+
+def showChosenItem():
+    filename = photo_list.currentItem().text()
+    workImage.loadImage(filename, workdir)
+    workImage.showImage(os.path.join(workdir, filename), image)
 
 
 
-
-
+photo_list.currentRowChanged.connect(showChosenItem)
 
 
 
