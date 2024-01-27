@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QApplication, QLabel,
     QListWidget, QTextEdit, QWidget, 
     QPushButton, QLineEdit, QListWidget, QHBoxLayout, 
-    QVBoxLayout, QFileDialog)
+    QVBoxLayout, QFileDialog, QMessageBox)
 import os
 from ImageProcessor import ImageProcessor
 
@@ -13,6 +13,7 @@ window = QWidget()
 window.setWindowTitle("Easy editor")
 window.resize(1000, 600)
 bn = QFileDialog()
+
 main_line = QHBoxLayout()
 line1 = QVBoxLayout()
 line2 = QVBoxLayout()
@@ -24,6 +25,7 @@ turn_left =  QPushButton("Вліво")
 turn_right =  QPushButton("Вправо")
 mirror =  QPushButton("Відзиркалити")
 color_photo =  QPushButton("Ч/Б")
+blur = QPushButton("Розмиття")
 rizkict =  QPushButton("Різкість")
 
 
@@ -40,6 +42,7 @@ button_line.addWidget(turn_left)
 button_line.addWidget(turn_right)
 button_line.addWidget(mirror)
 button_line.addWidget(color_photo)
+button_line.addWidget(blur)
 button_line.addWidget(rizkict)
 
 window.setLayout(main_line)
@@ -107,22 +110,25 @@ def showFloder():
     workdir = QFileDialog.getExistingDirectory()
     filenames = filter (os.listdir(workdir))
     photo_list.addItems(filenames)
-    
+
 btn_folder.clicked.connect(showFloder)
 
 
-workImage = ImageProcessor()
+workImage = ImageProcessor(image)
 
 def showChosenItem():
     filename = photo_list.currentItem().text()
     workImage.loadImage(filename, workdir)
-    workImage.showImage(os.path.join(workdir, filename), image)
+    workImage.showImage(os.path.join(workdir, filename))
 
 
 
 photo_list.currentRowChanged.connect(showChosenItem)
-
-
-
+color_photo.clicked.connect(workImage.do_bw)
+turn_left.clicked.connect(workImage.left)
+turn_right.clicked.connect(workImage.right)
+rizkict.clicked.connect(workImage.sharp)
+mirror.clicked.connect(workImage.mirrorer)
+blur.clicked.connect(workImage.blur)
 window.show()
 app.exec_()
