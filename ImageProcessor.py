@@ -1,9 +1,8 @@
 import os 
-
 from PIL import Image, ImageFilter
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-
+from PyQt5.QtWidgets import QMessageBox
 class ImageProcessor:
     def __init__(self, label):
         self.original = None
@@ -47,13 +46,26 @@ class ImageProcessor:
         self.original = self.original.convert("L")
         self.saveImage()
 
-
-    def left(self):
-        self.original = self.original.transpose(Image.ROTATE_90)
-        self.saveImage()
-    def right(self):
-        self.original = self.original.transpose(Image.ROTATE_270)
-        self.saveImage()
+    try:
+        def left(self):
+            self.original = self.original.transpose(Image.ROTATE_90)
+            self.saveImage()
+    except:
+        win = QMessageBox()
+        win.setWindowTitle("ERROR")
+        win.setText("Виберіть фото(файл)")
+        win.show()
+        win.exec_()
+    try:    
+        def right(self):
+            self.original = self.original.transpose(Image.ROTATE_270)
+            self.saveImage()
+    except:
+        win = QMessageBox()
+        win.setWindowTitle("ERROR")
+        win.setText("Виберіть фото(файл)")
+        win.show()
+        win.exec_()
     def mirrorer(self):
         self.original = self.original.transpose(Image.FLIP_LEFT_RIGHT)
         self.saveImage()
